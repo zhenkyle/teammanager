@@ -21,7 +21,7 @@ LoggerFactory.getLogger(Application.class);
 		SpringApplication.run(Application.class, args);
 	}
 
-	@Autowired
+	@Autowired(required = false)
 	DatabaseLoader databaseLoader;
 
 	@Autowired
