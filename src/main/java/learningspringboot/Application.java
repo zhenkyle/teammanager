@@ -22,7 +22,11 @@ LoggerFactory.getLogger(Application.class);
 	}
 
 	@Autowired
+	DatabaseLoader databaseLoader;
+
+	@Autowired
 	TeammateRepository teammateRepository;
+
 	@PostConstruct
 	void seeTheRoster() {
 		for (Teammate teammate : teammateRepository.findAll()) {
