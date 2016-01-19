@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Profile;
+import java.util.Arrays;
 
 @Service
 @Profile("!production")
@@ -21,22 +22,29 @@ public class DatabaseLoader {
 
 	@PostConstruct
 	private void initDatabase() {
+		teamRepository.deleteAll();
+		teammateRepository.deleteAll();
+
 		Team springBootTeam = new Team("Spring Boot Badgers");
 		teamRepository.save(springBootTeam);
 
 		Teammate greg = new Teammate("Greg", "Turnquist");
 		greg.setPosition("2nd base");
-		greg.setTeam(springBootTeam);
+		greg.setTeamId(springBootTeam.getId());
 		teammateRepository.save(greg);
 
 		Teammate roy = new Teammate("Roy", "Clarkson");
 		roy.setPosition("1st base");
-		roy.setTeam(springBootTeam);
+		roy.setTeamId(springBootTeam.getId());
 		teammateRepository.save(roy);
 
 		Teammate phil = new Teammate("Phil", "Webb");
 		phil.setPosition("pitcher");
-		phil.setTeam(springBootTeam);
+		phil.setTeamId(springBootTeam.getId());
 		teammateRepository.save(phil);
+
+		springBootTeam.setMembers(Arrays.asList(new Teammate[]{greg, roy,
+	phil}));
+		teamRepository.save(springBootTeam);
 	}
 }

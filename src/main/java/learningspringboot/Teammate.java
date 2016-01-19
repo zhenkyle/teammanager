@@ -1,22 +1,20 @@
 package learningspringboot;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import java.math.BigInteger;
 
-@Entity
+@Document
 public class Teammate {
 
-	@Id @GeneratedValue
-	private Long id;
+	@Id
+	private BigInteger id;
 
 	private String firstName;
 	private String lastName;
 	private String position;
 
-	@ManyToOne
-	private Team team;
+	private BigInteger teamId;
 
 	private Teammate() {
 	}
@@ -51,17 +49,17 @@ public class Teammate {
 		this.position = position;
 	}
 
-	public Team getTeam() {
-		return team;
+	public BigInteger getTeamId() {
+		return teamId;
 	}
 
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setTeamId(BigInteger teamId) {
+		this.teamId = teamId;
 	}
 
 	@Override
 	public String toString() {
 		return id + ": " + firstName + " " + lastName + " is playing " +
-	position + " for the " + team.getName();
+	position + " for the " + teamId;
 	}
 }

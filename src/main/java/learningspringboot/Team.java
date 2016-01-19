@@ -1,21 +1,21 @@
 package learningspringboot;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Document()
 public class Team {
 
-	@Id @GeneratedValue
-	private Long id;
+	@Id
+	private BigInteger id;
 
 	private String name;
 
-	@OneToMany(mappedBy = "team")
+	@DBRef
 	private List<Teammate> members;
 
 	private Team() {
@@ -25,6 +25,10 @@ public class Team {
 	public Team(String name) {
 		this();
 		this.name = name;
+	}
+
+	public BigInteger getId() {
+		return id;
 	}
 
 	public String getName() {
